@@ -1,8 +1,9 @@
 #! /bin/bash
-a= cat /etc/os-release | grep "ID_LIKE" | grep -m1 -o "\".*"
+a=$(cat /etc/os-release | grep "ID_LIKE" | grep -m1 -o "\".*")
 d="debian"
+r="\"rhel fedora\""
 
-if [[ $a -eq $d ]]; then
+if [ "$a" = "$d" ]; then
 
 echo "enter ip"
 read ip
@@ -11,7 +12,7 @@ echo "  version: 2">>/etc/netplan/00-installer-config.yaml
 echo "  renderer: networkd">>/etc/netplan/00-installer-config.yaml
 echo "  ethernets:">>/etc/netplan/00-installer-config.yaml
 echo "    enp0s3:">>/etc/netplan/00-installer-config.yaml
-echo "      dhcp4: no">>/etc/netplan/00-installer-config.yaml
+echo "      dhcp4: no">>/etc/netplan/00-installer-config.yamlcas
 echo "      dhcp6: no">>/etc/netplan/00-installer-config.yaml
 echo "      addresses: [$ip/24]">>/etc/netplan/00-installer-config.yaml
 echo "      gateway4: 192.168.0.1">>/etc/netplan/00-installer-config.yaml
@@ -19,7 +20,8 @@ echo "      nameservers:">>/etc/netplan/00-installer-config.yaml
 echo "        addresses: [8.8.8.8,8.8.4.4]">>/etc/netplan/00-installer-config.yaml
 sudo netplan apply
 exit 1
-fi
+
+elif [ "$a" = "$r" ]; then
 
 uuid=$(cat /etc/sysconfig/network-scripts/ifcfg-en* | grep "UUID")
 name=$(cat /etc/sysconfig/network-scripts/ifcfg-en* | grep "NAME")
@@ -43,3 +45,5 @@ echo "NETMASK=\"$ip_netmask\"" >> /etc/sysconfig/network-scripts/ifcfg-en*
 echo "GATEWAY=\"$ip_gateway\"" >> /etc/sysconfig/network-scripts/ifcfg-en*
 echo "DNS1=\"$ip_dns\"" >> /etc/sysconfig/network-scripts/ifcfg-en*
 systemctl restart network
+
+fi
