@@ -12,7 +12,7 @@ echo "  version: 2">>/etc/netplan/00-installer-config.yaml
 echo "  renderer: networkd">>/etc/netplan/00-installer-config.yaml
 echo "  ethernets:">>/etc/netplan/00-installer-config.yaml
 echo "    enp0s3:">>/etc/netplan/00-installer-config.yaml
-echo "      dhcp4: no">>/etc/netplan/00-installer-config.yamlcas
+echo "      dhcp4: no">>/etc/netplan/00-installer-config.yaml
 echo "      dhcp6: no">>/etc/netplan/00-installer-config.yaml
 echo "      addresses: [$ip/24]">>/etc/netplan/00-installer-config.yaml
 echo "      gateway4: 192.168.0.1">>/etc/netplan/00-installer-config.yaml
